@@ -17,12 +17,16 @@ $light: hsl(0, 0%, 100%);
 
 body {
   font-family: "Spartan", sans-serif;
-  //   height: 100vh;
-  margin: 0 auto;
-  max-width: 1440px;
+}
+
+.grid-container {
+  height: 100vh;
   display: grid;
-  grid-template-columns: 1fr 1fr 0.4fr 1fr;
-  grid-template-rows: 2fr 1fr;
+  grid-template-columns: repeat(2, minmax(0, 1fr)) minmax(0, 0.4fr) minmax(
+      0,
+      1fr
+    );
+  grid-template-rows: minmax(0, 2fr) minmax(0, 1fr);
   grid-template-areas:
     "main main title title"
     "left-image about about right-image";
@@ -34,19 +38,35 @@ img {
 }
 
 main {
+  .open,
+  .close {
+    display: none;
+  }
+  position: relative;
   grid-area: main;
   background: darkgray;
-  nav {
-    .logo {
-      margin-right: 5%;
+  .bg-image {
+    height: 100%;
+    position: relative;
+    z-index: 1;
+    &.hide {
+      display: none;
     }
+  }
+  nav {
+    z-index: 2;
+    position: absolute;
+    top: 0;
+    left: 5%;
     height: 20%;
-    margin: 0 auto;
     display: flex;
     align-items: center;
     justify-content: flex-start;
     width: 85%;
     color: $light;
+    .logo {
+      margin-right: 5%;
+    }
     ul {
       display: flex;
       align-items: center;
@@ -63,6 +83,7 @@ main {
 }
 
 .title-section {
+  pointer-events: none;
   position: relative;
   grid-area: title;
   display: flex;
@@ -86,6 +107,7 @@ main {
       text-transform: uppercase;
       font-size: 0.95rem;
       font-weight: 600;
+      color: $dark;
       svg {
         margin-left: 2.5rem;
         height: 100%;
@@ -98,19 +120,27 @@ main {
       font-size: 0.92rem;
       color: $primary;
     }
+    &.hide {
+      display: none;
+    }
   }
+}
 
-  .slider {
-    display: flex;
-    align-items: center;
-    justify-content: space-around;
-    background: black;
-    position: absolute;
-    bottom: 0;
-    left: 0;
-    height: 15%;
-    width: 28.5%;
-  }
+.slider {
+  display: flex;
+  align-items: center;
+  justify-content: space-around;
+  background: black;
+  align-self: end;
+  grid-column: 3 / 4;
+  grid-row: 1 / 2;
+  height: 15%;
+  width: 100%;
+}
+
+#next,
+#previous {
+  cursor: pointer;
 }
 
 .left-about {
@@ -142,8 +172,4 @@ main {
 
 .right-about {
   grid-area: right-image;
-}
-
-.hide {
-  display: none;
 }

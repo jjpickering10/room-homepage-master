@@ -12,14 +12,16 @@
 
 body {
   font-family: "Spartan", sans-serif;
-  margin: 0 auto;
-  max-width: 1440px;
+}
+
+.grid-container {
+  height: 100vh;
   display: -ms-grid;
   display: grid;
-  -ms-grid-columns: 1fr 1fr 0.4fr 1fr;
-      grid-template-columns: 1fr 1fr 0.4fr 1fr;
-  -ms-grid-rows: 2fr 1fr;
-      grid-template-rows: 2fr 1fr;
+  -ms-grid-columns: (minmax(0, 1fr))[2] minmax(0, 0.4fr) minmax(0, 1fr);
+      grid-template-columns: repeat(2, minmax(0, 1fr)) minmax(0, 0.4fr) minmax(0, 1fr);
+  -ms-grid-rows: minmax(0, 2fr) minmax(0, 1fr);
+      grid-template-rows: minmax(0, 2fr) minmax(0, 1fr);
       grid-template-areas: "main main title title" "left-image about about right-image";
 }
 
@@ -29,6 +31,7 @@ img {
 }
 
 main {
+  position: relative;
   -ms-grid-row: 1;
   -ms-grid-column: 1;
   -ms-grid-column-span: 2;
@@ -36,9 +39,27 @@ main {
   background: darkgray;
 }
 
+main .open,
+main .close {
+  display: none;
+}
+
+main .bg-image {
+  height: 100%;
+  position: relative;
+  z-index: 1;
+}
+
+main .bg-image.hide {
+  display: none;
+}
+
 main nav {
+  z-index: 2;
+  position: absolute;
+  top: 0;
+  left: 5%;
   height: 20%;
-  margin: 0 auto;
   display: -webkit-box;
   display: -ms-flexbox;
   display: flex;
@@ -75,6 +96,7 @@ main nav ul li {
 }
 
 .title-section {
+  pointer-events: none;
   position: relative;
   -ms-grid-row: 1;
   -ms-grid-column: 3;
@@ -120,6 +142,7 @@ main nav ul li {
   text-transform: uppercase;
   font-size: 0.95rem;
   font-weight: 600;
+  color: black;
 }
 
 .title-section .info a svg {
@@ -134,7 +157,11 @@ main nav ul li {
   color: #a1a1a1;
 }
 
-.title-section .slider {
+.title-section .info.hide {
+  display: none;
+}
+
+.slider {
   display: -webkit-box;
   display: -ms-flexbox;
   display: flex;
@@ -144,11 +171,21 @@ main nav ul li {
   -ms-flex-pack: distribute;
       justify-content: space-around;
   background: black;
-  position: absolute;
-  bottom: 0;
-  left: 0;
+  -ms-flex-item-align: end;
+      align-self: end;
+  -ms-grid-column: 3;
+  -ms-grid-column-span: 1;
+  grid-column: 3 / 4;
+  -ms-grid-row: 1;
+  -ms-grid-row-span: 1;
+  grid-row: 1 / 2;
   height: 15%;
-  width: 28.5%;
+  width: 100%;
+}
+
+#next,
+#previous {
+  cursor: pointer;
 }
 
 .left-about {
@@ -197,9 +234,5 @@ main nav ul li {
   -ms-grid-row: 2;
   -ms-grid-column: 4;
   grid-area: right-image;
-}
-
-.hide {
-  display: none;
 }
 /*# sourceMappingURL=styles.css.map */
