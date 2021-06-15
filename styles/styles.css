@@ -88,11 +88,35 @@ main nav ul {
 }
 
 main nav ul li {
+  position: relative;
   text-transform: lowercase;
   font-size: 1.2rem;
   margin-right: 5%;
   list-style: none;
   font-weight: 600;
+}
+
+main nav ul li:after {
+  content: "";
+  height: 20%;
+  width: 50%;
+  -webkit-transform: translateX(-50%);
+          transform: translateX(-50%);
+  -webkit-transition: 0.5s;
+  transition: 0.5s;
+  position: absolute;
+  bottom: -50%;
+  left: 50%;
+  background: white;
+  opacity: 0;
+}
+
+main nav ul li:hover, main nav ul li:focus {
+  cursor: pointer;
+}
+
+main nav ul li:hover:after, main nav ul li:focus:after {
+  opacity: 1;
 }
 
 .title-section {
@@ -118,6 +142,7 @@ main nav ul li {
 }
 
 .title-section .info {
+  pointer-events: all;
   display: -webkit-box;
   display: -ms-flexbox;
   display: flex;
@@ -143,9 +168,20 @@ main nav ul li {
   font-size: 0.95rem;
   font-weight: 600;
   color: black;
+  -webkit-transition: 0.5s;
+  transition: 0.5s;
 }
 
-.title-section .info a svg {
+.title-section .info a:hover, .title-section .info a:focus {
+  cursor: pointer;
+  color: #a1a1a1;
+}
+
+.title-section .info a:hover svg, .title-section .info a:focus svg {
+  stroke: #a1a1a1;
+}
+
+.title-section .info svg {
   margin-left: 2.5rem;
   height: 100%;
   vertical-align: bottom;
@@ -165,11 +201,6 @@ main nav ul li {
   display: -webkit-box;
   display: -ms-flexbox;
   display: flex;
-  -webkit-box-align: center;
-      -ms-flex-align: center;
-          align-items: center;
-  -ms-flex-pack: distribute;
-      justify-content: space-around;
   background: black;
   -ms-flex-item-align: end;
       align-self: end;
@@ -185,7 +216,25 @@ main nav ul li {
 
 #next,
 #previous {
+  display: -webkit-box;
+  display: -ms-flexbox;
+  display: flex;
+  -webkit-box-align: center;
+      -ms-flex-align: center;
+          align-items: center;
+  -ms-flex-pack: distribute;
+      justify-content: space-around;
+  width: 100%;
+  height: 100%;
   cursor: pointer;
+  -webkit-transition: 0.5s;
+  transition: 0.5s;
+}
+
+#next:hover, #next:focus,
+#previous:hover,
+#previous:focus {
+  background: #454545;
 }
 
 .left-about {
